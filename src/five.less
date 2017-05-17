@@ -1,0 +1,46 @@
+@w: 22px;
+@h: 22px;
+@size: 20;
+:global {
+
+  #root {
+    width: @w * @size;
+    height: @h * @size;
+    padding: 15px;
+    border: solid 1px black;
+  }
+
+  .row {
+    display: flex;
+  }
+
+  .g {
+    /*outline: solid 1px red;*/
+    display: inline-block;
+    width: @w;
+    height: @h;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .g0 {
+    .g;
+    background: url("./images/s0.png") no-repeat;
+    background-position: center;
+  }
+
+  .g1 {
+    .g;
+    background: url("./images/s1.png") no-repeat;
+    background-position: center;
+  }
+
+  .g2 {
+    .g;
+    background: url("./images/s2.png") no-repeat;
+    background-position: center;
+  }
+
+}
