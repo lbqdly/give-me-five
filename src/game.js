@@ -265,9 +265,9 @@ function testVctId(gid, vct0, vct1, state, currentGrid) {
 
     for (let i = 1; i <= 5; i++) {
         let nbid = getNeighborId(gid, vct0, i);
-        //console.log(nbid, i);
+        console.log(nbid, i);
         //获取邻居id
-        if (state[nbid].type === currentGrid.type) {
+        if (state[nbid] && state[nbid].type === currentGrid.type) {
             //如果邻居是同类棋子,添加到数组
             grids.push(nbid);
         } else {
@@ -281,7 +281,7 @@ function testVctId(gid, vct0, vct1, state, currentGrid) {
         //console.log(nbid, i);
         //获取邻居id
 
-        if (state[nbid].type === currentGrid.type) {
+        if (state[nbid] && state[nbid].type === currentGrid.type) {
             //如果邻居是同类棋子,添加到数组
             grids.push(nbid);
         } else {

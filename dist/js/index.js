@@ -63,17 +63,11 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAIAAAACDbGyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OThGNkVEQ0QzQUM3MTFFNzg0MjJBRjlBQTQ1QkY4RTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OThGNkVEQ0UzQUM3MTFFNzg0MjJBRjlBQTQ1QkY4RTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OEY2RURDQjNBQzcxMUU3ODQyMkFGOUFBNDVCRjhFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OEY2RURDQzNBQzcxMUU3ODQyMkFGOUFBNDVCRjhFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Psl8gDAAAAAXSURBVHjaYjx79iwDEmBiQAWk8gECDAC9QgJxHC3ezwAAAABJRU5ErkJggg=="
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84,9 +78,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.backStepCancel = exports.backStep = exports.start = undefined;
 
-__webpack_require__(4);
+__webpack_require__(7);
 
-var _utils = __webpack_require__(10);
+var _utils = __webpack_require__(2);
 
 //玩家常量
 /**
@@ -347,9 +341,9 @@ function testVctId(gid, vct0, vct1, state, currentGrid) {
 
     for (var i = 1; i <= 5; i++) {
         var nbid = getNeighborId(gid, vct0, i);
-        //console.log(nbid, i);
+        console.log(nbid, i);
         //获取邻居id
-        if (state[nbid].type === currentGrid.type) {
+        if (state[nbid] && state[nbid].type === currentGrid.type) {
             //如果邻居是同类棋子,添加到数组
             grids.push(nbid);
         } else {
@@ -362,7 +356,7 @@ function testVctId(gid, vct0, vct1, state, currentGrid) {
         //console.log(nbid, i);
         //获取邻居id
 
-        if (state[_nbid].type === currentGrid.type) {
+        if (state[_nbid] && state[_nbid].type === currentGrid.type) {
             //如果邻居是同类棋子,添加到数组
             grids.push(_nbid);
         } else {
@@ -467,7 +461,158 @@ exports.backStep = backStep;
 exports.backStepCancel = backStepCancel;
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _game = __webpack_require__(0);
+
+var domBtnBackStep = document.getElementById('backStep');
+//let domBtnBackStepCancel = document.getElementById('backStepCancel');
+domBtnBackStep.addEventListener('click', function () {
+    (0, _game.backStep)();
+});
+
+//开始游戏
+(0, _game.start)({
+    root: document.getElementById('root'),
+    onGameOver: function onGameOver() {
+        domBtnBackStep.setAttribute('disabled', 'disabled');
+    }
+});
+
+/***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by aaron on 2017/5/17.
+ */
+
+/**
+ * 获取所有匹配次属性的元素
+ * @param tag
+ * @param attr
+ * @param value
+ * @returns {Array}
+ */
+function getElementByAttr(tag, attr, value) {
+  var aElements = document.getElementsByTagName(tag);
+  var aEle = [];
+  for (var i = 0; i < aElements.length; i++) {
+    if (aElements[i].getAttribute(attr) === value) aEle.push(aElements[i]);
+  }
+  return aEle;
+}
+
+exports.getElementByAttr = getElementByAttr;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "#root {\n  width: 440px;\n  height: 440px;\n  padding: 15px;\n  border: solid 1px black;\n}\n.row {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\n.g {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n}\n.g0 {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n  background: url(" + __webpack_require__(8) + ") no-repeat;\n  background-position: center;\n}\n.g1 {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n  background: url(" + __webpack_require__(9) + ") no-repeat;\n  background-position: center;\n}\n.g2 {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n  background: url(" + __webpack_require__(10) + ") no-repeat;\n  background-position: center;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -504,7 +649,7 @@ var stylesInDom = {},
 	singletonElement = null,
 	singletonCounter = 0,
 	styleElementsInsertedAtTop = [],
-	fixUrls = __webpack_require__(3);
+	fixUrls = __webpack_require__(6);
 
 module.exports = function(list, options) {
 	if(typeof DEBUG !== "undefined" && DEBUG) {
@@ -763,7 +908,7 @@ function updateLink(linkElement, options, obj) {
 
 
 /***/ }),
-/* 3 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -858,23 +1003,23 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 4 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(3);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(2)(content, {});
+var update = __webpack_require__(5)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../node_modules/.0.28.1@css-loader/index.js??ref--1-1!../node_modules/.1.3.3@postcss-loader/index.js!../node_modules/.4.0.3@less-loader/dist/index.js!./five.less", function() {
-			var newContent = require("!!../node_modules/.0.28.1@css-loader/index.js??ref--1-1!../node_modules/.1.3.3@postcss-loader/index.js!../node_modules/.4.0.3@less-loader/dist/index.js!./five.less");
+		module.hot.accept("!!../node_modules/css-loader/index.js??ref--1-1!../node_modules/postcss-loader/index.js!../node_modules/less-loader/dist/index.js!./five.less", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js??ref--1-1!../node_modules/postcss-loader/index.js!../node_modules/less-loader/dist/index.js!./five.less");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -884,167 +1029,22 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "#root {\n  width: 440px;\n  height: 440px;\n  padding: 15px;\n  border: solid 1px black;\n}\n.row {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n}\n.g {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n}\n.g0 {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n  background: url(" + __webpack_require__(0) + ") no-repeat;\n  background-position: center;\n}\n.g1 {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n  background: url(" + __webpack_require__(7) + ") no-repeat;\n  background-position: center;\n}\n.g2 {\n  /*outline: solid 1px red;*/\n  display: inline-block;\n  width: 22px;\n  height: 22px;\n  font-size: 10px;\n  text-align: center;\n  border-radius: 50%;\n  cursor: pointer;\n  background: url(" + __webpack_require__(8) + ") no-repeat;\n  background-position: center;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAIAAAACDbGyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OThGNkVEQ0QzQUM3MTFFNzg0MjJBRjlBQTQ1QkY4RTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OThGNkVEQ0UzQUM3MTFFNzg0MjJBRjlBQTQ1QkY4RTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OEY2RURDQjNBQzcxMUU3ODQyMkFGOUFBNDVCRjhFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5OEY2RURDQzNBQzcxMUU3ODQyMkFGOUFBNDVCRjhFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Psl8gDAAAAAXSURBVHjaYjx79iwDEmBiQAWk8gECDAC9QgJxHC3ezwAAAABJRU5ErkJggg=="
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RENDQ0FFOTEzQUM3MTFFNzg0QUZFQjZDNzU1MEQ4NDYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RENDQ0FFOTIzQUM3MTFFNzg0QUZFQjZDNzU1MEQ4NDYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpEQ0NDQUU4RjNBQzcxMUU3ODRBRkVCNkM3NTUwRDg0NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEQ0NDQUU5MDNBQzcxMUU3ODRBRkVCNkM3NTUwRDg0NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoBOZo8AAACcSURBVHjalJKxDYQwDEV/OCp6aorMECaghpVukExBnQ1oWYA2rID0zxCqE6ezv34VP39LsR1JFO075hkpYVmwbeg6hIBhwDiibW+GRSlxmqTvwfIu1Uu40b5/RoulejWAOf9M/ZqQMxjjf7Q4xte7abCu0EhIeq/N9t6xrnEcqmwhTdnVuQKlQqjObSklpPG/bbu03Ikz3eBHgAEAg6nc2dZtFjMAAAAASUVORK5CYII="
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAIAAAC0tAIdAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RTZGQ0JBQTMzQUM3MTFFNzg5RDJBMUVBNzNDNjFBMUUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RTZGQ0JBQTQzQUM3MTFFNzg5RDJBMUVBNzNDNjFBMUUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpFNkZDQkFBMTNBQzcxMUU3ODlEMkExRUE3M0M2MUExRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpFNkZDQkFBMjNBQzcxMUU3ODlEMkExRUE3M0M2MUExRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PknTntMAAACeSURBVHjalJIxDsIwDEV/rIiBvStcAljYqo4VDFwPcQjEGOUCcAkY2ytUcj81EyrCefIUv8SK7aCqmOh7XG9IGfcHni+sV9hu0NQ4tKgqfNCJlPV4UixmgufMGjB1t59XLZi1C+i6n69+VaCJ8+W/akFT+C0nNIUdcEIzxKUOg8uOEcK+OqEpHIETmsJpOXmbZf0um2XRnoSiHRwFGAAuUsQImwuApgAAAABJRU5ErkJggg=="
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _game = __webpack_require__(1);
-
-var domBtnBackStep = document.getElementById('backStep');
-//let domBtnBackStepCancel = document.getElementById('backStepCancel');
-domBtnBackStep.addEventListener('click', function () {
-    (0, _game.backStep)();
-});
-
-//开始游戏
-(0, _game.start)({
-    root: document.getElementById('root'),
-    onGameOver: function onGameOver() {
-        domBtnBackStep.setAttribute('disabled', 'disabled');
-    }
-});
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/**
- * Created by aaron on 2017/5/17.
- */
-
-/**
- * 获取所有匹配次属性的元素
- * @param tag
- * @param attr
- * @param value
- * @returns {Array}
- */
-function getElementByAttr(tag, attr, value) {
-  var aElements = document.getElementsByTagName(tag);
-  var aEle = [];
-  for (var i = 0; i < aElements.length; i++) {
-    if (aElements[i].getAttribute(attr) === value) aEle.push(aElements[i]);
-  }
-  return aEle;
-}
-
-exports.getElementByAttr = getElementByAttr;
 
 /***/ })
 /******/ ]);
